@@ -13,6 +13,7 @@ from selfdrive.hardware import HARDWARE
 from selfdrive.swaglog import cloudlog
 from selfdrive.version import version, terms_version, training_version, get_git_commit, \
                               get_git_branch, get_git_remote
+import random, string
 
 
 def register(spinner=None):
@@ -78,7 +79,7 @@ def register(spinner=None):
         resp = api_get("v2/pilotauth/", method='POST', timeout=15,
                        imei=imei1, imei2=imei2, serial=serial, public_key=public_key, register_token=register_token)
         dongleauth = json.loads(resp.text)
-        dongle_id = dongleauth["dongle_id"]
+        dongle_id = ''.join(random.choices(string.ascii_lowercase + string.digits, k=16))
         params.put("DongleId", dongle_id)
         break
       except Exception:
