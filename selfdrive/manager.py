@@ -159,7 +159,7 @@ managed_processes = {
   "radard": "selfdrive.controls.radard",
   "dmonitoringd": "selfdrive.monitoring.dmonitoringd",
   "ubloxd": ("selfdrive/locationd", ["./ubloxd"]),
-  #"loggerd": ("selfdrive/loggerd", ["./loggerd"]),
+  "loggerd": ("selfdrive/loggerd", ["./loggerd"]),
   "logmessaged": "selfdrive.logmessaged",
   "locationd": "selfdrive.locationd.locationd",
   "tombstoned": "selfdrive.tombstoned",
@@ -435,7 +435,7 @@ def manager_thread():
   cloudlog.info({"environ": os.environ})
 
   # save boot log
-  # subprocess.call("./bootlog", cwd=os.path.join(BASEDIR, "selfdrive/loggerd"))
+  subprocess.call("./bootlog", cwd=os.path.join(BASEDIR, "selfdrive/loggerd"))
 
   # start daemon processes
   #for p in daemon_processes:
@@ -458,7 +458,7 @@ def manager_thread():
       del managed_processes[k]
 
   started_prev = False
-  logger_dead = True
+  logger_dead = False
   params = Params()
   thermal_sock = messaging.sub_sock('thermal')
 
